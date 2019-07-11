@@ -3,7 +3,7 @@ title: "Object Oriented Javascript: What it is, and when to use it"
 date: "2014-07-24T23:46:37.121Z"
 template: "post"
 draft: false
-slug: "/posts/object-oriented-javascript/"
+slug: "/object-oriented-javascript/"
 category: "Javascript"
 tags:
   - "Javascript"
