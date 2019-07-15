@@ -36,7 +36,7 @@ npx create-react-app react-router-auth
 
 I'm not going to be setting up any *permanent* architecture in this project for my files. Everyone has a bit of their own style with folder/file architecture, and I'd like to keep this as agnostic as possible for people to follow along with. Or maybe I'm avoiding triggering people that don't use mine 
 
-![pitchfork (1)](/Users/dennyscott/Downloads/pitchfork (1).jpg)
+![pitchfork](https://raw.githubusercontent.com/DennyScott/dennyscott.io/master/static/media/pitchfork%20(1).jpg)
 
 Our next step will be to install the packages we need. We'll be installing [React Router](https://reacttraining.com/react-router/web/guides/quick-start) and [Styled Components](https://www.styled-components.com/) and [axios](https://github.com/axios/axios). 
 
@@ -231,7 +231,7 @@ export default PrivateRoute;
 
 Here, we are using our hook and pulling whatever value is stored in our AuthContext. Later on, we will be using tokens to update this value. As of right now, it is set to false. That means `isAuthenticated` will always be false. So when we hit the logic in our Route render prop, it will always redirect us to the home page. Later this will be to the login page, but for now, if you test this out, you should be unable ever to reach the admin page. You will always be stuck on the home page. 
 
-![privateRoute](/Users/dennyscott/Downloads/privateRoute.gif)
+![privateRoute](https://raw.githubusercontent.com/DennyScott/dennyscott.io/master/static/media/privateRoute.gif)
 
 To make sure this is working, trying changing the Provider value to `true` in `App.js.` You should now be free to go where ever you like. Let's change the context value back to `false` and keep going.
 
@@ -380,7 +380,7 @@ function App(props) {
 
 You should now be able to jump to the login and sign up pages by writing in the URL. We can add buttons later, but you should also be able to navigate back and forth between the two pages by hitting the link below the Sign in/ Sign up button.
 
-![image-20190714202956466](/Users/dennyscott/Library/Application Support/typora-user-images/image-20190714202956466.png)
+![image-20190714202956466](https://raw.githubusercontent.com/DennyScott/dennyscott.io/master/static/media/arbitrary.png)
 
 One last small addition, when the user attempts to go to Private Route, we want to redirect the user back to the login page. This just requires a minor update in the `redirect` of the `PrivateRoute` component.
 
@@ -622,7 +622,7 @@ The user should now be redirected back to the page they were initially attemptin
 
 That does it for a basic walkthrough. So we're ready for prod right? Well I wouldn't get too comfy, there's a lot more work to be done.
 
-![abe](/Users/dennyscott/Downloads/abe.gif)
+![abe](https://raw.githubusercontent.com/DennyScott/dennyscott.io/master/static/media/abe.gif)
 
 Some other things that could be important are:
 
