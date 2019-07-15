@@ -635,7 +635,7 @@ Perhaps that's a blog for another day. Hopefully, this was helpful for everyone 
 
 As I said, this is a pretty basic introduction, but I've been finding myself using patterns like this more from time to time. As I get more into blogging, I plan to include more basic guide blogs or component design blogs like this. If you have any suggestions, shoot me a tweet at my link below.
 
-As always, the code for this project can be found on my GitHub [here](https://github.com/DennyScott/react-router-auth).
+If there's something you're interested in to see on this blog, or you think I should check out, be sure to contact me @gitinbit. All code here is [available on Github](https://github.com/DennyScott/react-router-auth). Cheers!
 
 ## References and Further Reading
 
