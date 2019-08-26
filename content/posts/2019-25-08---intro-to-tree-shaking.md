@@ -12,7 +12,7 @@ description: "In part 3 of our reducing js bundle size series, we will take a lo
 ---
 ## Introduction
 
-It's been some time since I started the "Reducing Javascript bundle size" series, but today we are going to take a look at one of the most misunderstood tactics for reducing the size, tree shaking. [Tree shaking](https://webpack.js.org/guides/tree-shaking/) has a lot of buzz to it, so it's worth investigating. 
+It's been some time since I started the *reducing Javascript bundle size* series, but today we are going to take a look at one of the most misunderstood tactics for reducing the size, tree shaking. [Tree shaking](https://webpack.js.org/guides/tree-shaking/) has a lot of buzz to it, so it's worth investigating. 
 
 > Note: Check out [Part One](https://medium.com/better-programming/reducing-js-bundle-size-58dc39c10f9c) and [Part Two](https://medium.com/better-programming/reducing-js-bundle-size-a6533c183296) of this series!
 
