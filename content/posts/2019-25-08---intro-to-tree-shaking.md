@@ -173,13 +173,7 @@ function selectClothes(type) {
 
 Great, so looking at the code above, we can map out the dependencies. Each module can depend on `0...n` modules. Let's place these dependencies in a table.
 
-| Module | dependsOn |
-| ------ | --------- |
-| index  | a         |
-| a      | b, c      |
-| b      | c, d      |
-| c      |           |
-| d      | c         |
+![DependencyGraph](https://raw.githubusercontent.com/DennyScott/dennyscott.io/master/static/media/tree-shaking/table.png)
 
 With our simple dependency table done, lets plot this out as a graph. A circle will represent each module, and a line indicates a dependency. The arrow indicates it's the dependee module. For our example, the graph should look something like this
 
