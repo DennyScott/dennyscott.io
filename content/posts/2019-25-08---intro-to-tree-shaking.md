@@ -348,7 +348,7 @@ export function multiply(x, y) {
 
 Now, our dead code elimination cannot delete exported functions, because they could be used outside of this module. When one was using CJS, our code was not statically structured; therefore, we couldn't ever be sure if the code was used, and especially not before compile time.
 
-But, with ESM, Webpack (or most module bundlers) can examine this code, and determine if these functions are ever imported or used. If they are not used, like multiple above, they are *treeshuck* (not a real word), and the export syntax is removed. Dead code elimination takes over as usual and notices the function is not used and is removed from the codebase. Let's see that in action, again running
+But, with ESM, Webpack (or most module bundlers) can examine this code, and determine if these functions are ever imported or used. If they are not used, like `multiply` above, tree shaking takes place, and the export syntax is removed. Dead code elimination takes over as usual and notices the function is not used and is removed from the codebase. Let's see that in action, again running
 
 ```bash
 npx webpack
