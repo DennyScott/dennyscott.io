@@ -20,7 +20,7 @@ We are going to examine what tree shaking means, how it works, how it helps both
 
 ## Brief Overview of Dead Code Elimination
 
-We took a deeper dive into what [dead code elimination](https://medium.com/better-programming/reducing-js-bundle-size-a6533c183296) is in a previous post in this series. None the less let's have a quick refresher on what dead code elimination is, as it will be pivotal to understanding Treeshaking, as tree shaking uses the same technique. If you would like a deeper dive into the topic, I do recommend looking at the linked article above.
+We took a deeper dive into what [dead code elimination](https://medium.com/better-programming/reducing-js-bundle-size-a6533c183296) is in a previous post in this series. None the less let's have a quick refresher on what dead code elimination is, as it will be pivotal to understanding Tree shaking, as tree shaking uses the same technique. If you would like a deeper dive into the topic, I do recommend looking at the linked article above.
 
 Dead code elimination (DCE) is the process of removing code that is either unused or inaccessible. Tools like [Terser](https://github.com/terser-js/terser) usually handle DCE in conjunction with build systems like Webpack. An example of DCE would be the following example
 
@@ -56,7 +56,7 @@ function selectClothes(type) {
   console.log(data);
 ```
 
-IIn the above example, it is impossible ever to reach the return of `type: hat`. That's because there is an else beforehand, making the code inaccessible. Terser will try to determine this and remove these unused examples. Similarly, the `selectAccessory` function was never executed in this code, and therefore can be removed as well. But, if we run Terser over the file, you'll notice it isn't removed
+In the above example, it is impossible ever to reach the return of `type: hat`. That's because there is an else beforehand, making the code inaccessible. Terser will try to determine this and remove these unused examples. Similarly, the `selectAccessory` function was never executed in this code, and therefore can be removed as well. But, if we run Terser over the file, you'll notice it isn't removed
 
 ```bash
 npx terser index.js -c
@@ -84,7 +84,7 @@ Webpack has made a lot of optimizations, so the code can be quite a bit trickier
 
 > Note: Moving forward, we will be calling these **modules**, following the ESM style. Assuming these are encapsulated pieces will make them much more comfortable to think about. We'll discuss why we are using ESM soon.
 
-## So what is Treeshaking
+## So what is tree shaking
 
 To start with the idea of tree shaking, the easiest way I found to think about it was to picture it as dead code elimination **across** modules. So far, our dead code elimination only works internally to a given module. It will check if code is inaccessible, or ever called, and remove it from that module. But what if we had a module that is never called? Or only a small piece of it is? Can we remove it, or the portions unused within the unused module, from our codebase then? 
 
@@ -95,7 +95,7 @@ The answer is yes, and some of it might be already happening for you, and you di
 - Seeing a code example of this style
 - Investigating what scenarios are most beneficial for the application of tree shaking
 
-## Why is it called Treeshaking?
+## Why is it called Tree shaking?
 
 Let's stop a think a minute on how module dependency works. You tell Webpack the first file it should look in, usually something like `src/index.js`. From there, Webpack will open that file and might notice you are importing `a.js`. It will then note that the `index` has a dependency on `a.js`.  After `index`, Webpack will look at `a.js` and scan it for dependencies.
 
@@ -193,7 +193,7 @@ npx webpack --profile --json > webpack-stats.json
 
 The above command will create a webpack-state.json file. Now, we can upload this on the analyzer website [here](https://webpack.github.io/analyse/#home). But if you navigate to the modules tab, you'll notice it looks a little underwhelming:
 
-![image-20190825144410528](/Users/dennyscott/Library/Application Support/typora-user-images/image-20190825144410528.png)
+![image-20190825144410528](https://raw.githubusercontent.com/DennyScott/dennyscott.io/master/static/media/tree-shaking/webpack1.png)
 
 Well, our webpack bundles these together as a single chunk. Therefore, we only see it as a single dot. But we know the process now, how about we try it on a more significant project! I'm going to try it on [Boostnote](https://github.com/BoostIO/Boostnote), a cross-platform markdown editor written in [React](https://reactjs.org/). 
 
@@ -207,7 +207,7 @@ npx webpack --profile --json > webpack-stats.json
 
 If we upload the `webpack-stats` to the Webpack Analyzer, we get something like this: 
 
-![image-20190825144936882](/Users/dennyscott/Library/Application Support/typora-user-images/image-20190825144936882.png)
+![image-20190825144936882](https://raw.githubusercontent.com/DennyScott/dennyscott.io/master/static/media/tree-shaking/webpack2.png)
 
 Now that's a tree! Unfortunately, the `main.js` is actually in the middle of all of these, and creating it as a web outwards is the best use of space, but if we were to imagine it was the base, everything would expand outward in a more classical "tree" form, with sets of nodes, and leaf nodes.
 
@@ -368,7 +368,7 @@ Notice above, `console.log('multiply')` never exists. Tree shaking removed that 
 
 ![DependencyGraph](https://raw.githubusercontent.com/DennyScott/dennyscott.io/master/static/media/tree-shaking/DependencyGraph-1.png)
 
-## Caution for Treeshaking as an optimization
+## Caution for Tree shaking as an optimization
 
 Now that you understand what exactly tree shaking is, and how it can be helpful for us, I want to start by saying, it's usage for you will vary wildly. Depending on what exactly you're building, there's going to be a difference to how you set up your bundles, and how effective setting up tree shaking will be.
 
@@ -380,7 +380,7 @@ We completed the migration and reran the analyzer. We reduced our core-bundle by
 
 > Building the code mods to migrate from CJS -> ESM took quite a bit of time and work. There are some unexpected edge cases between the two specs. I'm looking to open source the work we did, and will hopefully write a blog soon detailing the process!
 
-## Treeshaking web app vs library code
+## Tree shaking web app vs library code
 
 To understand how useful tree shaking will be for you, first determine how much-unused code is currently your codebase? 
 
