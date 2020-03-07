@@ -296,7 +296,7 @@ Now, if you’re used to React or Javascript, it’s probably apparent to you th
 
 Take a look at the `Context` object itself and you will see there are no public functions to update our values:
 
-<img class="df t u hi ak" src="https://miro.medium.com/max/2748/0\*nzK4V-221rsxeuRF.png" width="1374" height="356" role="presentation"/>
+![context object](https://raw.githubusercontent.com/DennyScott/dennyscott.io/master/static/media/redux-vs-context-vs-state/context-object.png)
 
 That’s because, although the `context` object’s primary purpose is the mechanism to update consumers on the provider’s value change, it does not provide tools to re-render the component that houses the provider. Instead, it’s similar to a Pub/Sub pattern that informs its subscribers when the value has changed.
 
@@ -394,11 +394,11 @@ const MemoLevelThree = React.memo(LevelThree);
 
 In this example, we’ve memoized our components and added a `console.log` to print when that component is re-rendered. If you try the case, you’ll see each component executed precisely once. Now click the “Change context” button and you will see that only Level One and Level three were called.
 
-<img class="df t u hi ak" src="https://miro.medium.com/max/1272/0\*Zlm8uN4MR1EkEXA2.png" width="636" height="382" role="presentation"/>
+![MemoOutput](https://raw.githubusercontent.com/DennyScott/dennyscott.io/master/static/media/redux-vs-context-vs-state/MemoOutput.png)
 
 So what does this mean? It demonstrates the Pub/Sub-like pattern that the `Context` system employs. Let’s draw a picture to walk through these events.
 
-<img class="df t u hi ak" src="https://miro.medium.com/max/4448/0\*NdWtRBDBBLReOkTE.png" width="2224" height="1668" role="presentation"/>
+![Diagram](https://raw.githubusercontent.com/DennyScott/dennyscott.io/master/static/media/redux-vs-context-vs-state/digram.png)
 
 Let’s follow the chain of events in the above picture. A user has clicked on the button to update the context data. The context itself will notify all its consumers if that data has changed. There’s no need for us to re-render level two since none of that has changed.
 
@@ -585,7 +585,7 @@ const MemoLevelThreeB = React.memo(LevelThreeB);
 
 So, we’ve updated our context to have two consumers, and both of those components are being displayed at a sibling level in `LevelTwo`. Now, when you click either of the buttons to update one of their states, you should see this:
 
-<img class="df t u hi ak" src="https://miro.medium.com/max/1452/0\*RPFPVDLG4wPeqQDQ.png" width="726" height="216" role="presentation"/>
+![BigMemoOutput](https://raw.githubusercontent.com/DennyScott/dennyscott.io/master/static/media/redux-vs-context-vs-state/big-memo-output.png)
 
 No matter what, both of these components are re-rendered, despite them both being memoized, and at a sibling level. That’s because `context` only notifies their consumers that a change has occurred. It does not know whether that change affects the component using that consumer.
 
@@ -637,7 +637,7 @@ Here’s our code now using a Redux store, connected through the React-Redux pro
 
 What happens now when we click the `Change context` button? Our output should look like this:
 
-<img class="df t u hi ak" src="https://miro.medium.com/max/1024/0\*i2MDnA5YWfthInWJ.png" width="512" height="270" role="presentation"/>
+![ReduxOutput](https://raw.githubusercontent.com/DennyScott/dennyscott.io/master/static/media/redux-vs-context-vs-state/redux-output.png)>
 
 Each component was called once for the initial render. Now, when we update our Level Three component, it only re-renders that single component. Not even our provider component updates.
 
@@ -667,7 +667,7 @@ forceRender({})
 
 An even more simplified version is broken down in this diagram:
 
-<img class="df t u hi ak" src="https://miro.medium.com/max/3520/0\*kIWNp-iFikxhz\_DI.jpeg" width="1760" height="1360" role="presentation"/>
+![ReduxDiagram](https://raw.githubusercontent.com/DennyScott/dennyscott.io/master/static/media/redux-vs-context-vs-state/redux-diagram.jpg)
 
 Note, any child of component three will also still be re-rendered, so, if that’s not desirable, it’s still on the developer to ensure that child components are properly memoized.
 
@@ -728,15 +728,15 @@ As we can see above, the Hook can tie directly into the data and pull out what�
 
 The DOM output is the same, but there is a difference in the structure of our React document.
 
-<img class="df t u hi ak" src="https://miro.medium.com/max/712/0\*-Da2fhMqTBcvnSB2.png" width="356" height="78" role="presentation"/>
+![HookTree](https://raw.githubusercontent.com/DennyScott/dennyscott.io/master/static/media/redux-vs-context-vs-state/hook-tree.png)
 
-<img class="df t u hi ak" src="https://miro.medium.com/max/908/0\*yJfJo3tcjx7Tsa7s.png" width="454" height="162" role="presentation"/>
+![HOCTree](https://raw.githubusercontent.com/DennyScott/dennyscott.io/master/static/media/redux-vs-context-vs-state/HOC-tree.png)
 
 ### ComponentWithHOC React Structure
 
 It appears that our Hook component resembles precisely the elements as they appear in our code. The connect HOC component is a little bit more complicated. Now, we know connect is a HOC, and if you’ve previously used HOC’s, you should have some idea how this looks, but let’s diagram it.
 
-<img class="df t u hi ak" src="https://miro.medium.com/max/3198/0\*65hfbukqzOdH055n.jpg" width="1599" height="981" role="presentation"/>
+![DiagramHocVsHook](https://raw.githubusercontent.com/DennyScott/dennyscott.io/master/static/media/redux-vs-context-vs-state/diagramHocVsHook.jpg)
 
 Now we have this extra component that wraps our component. This is responsible for collecting the state data and passing it to our component as a prop. Now, because our component is wrapped with this higher-level component, some extra optimizations are performed out-of-the-box, which aren’t available for Hooks. Namely, we can render both the [component creation](https://github.com/reduxjs/react-redux/blob/master/src/components/connectAdvanced.js#L385) as well as [memoize our actual connect HOC](https://github.com/reduxjs/react-redux/blob/master/src/components/connectAdvanced.js#L411).
 

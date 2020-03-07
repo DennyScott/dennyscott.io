@@ -1,5 +1,5 @@
 ---
-title: "Understanding the useEffect dependency array"
+title: "Understanding the useEffect Dependency Array"
 date: "2020-03-07T22:40:32.169Z"
 template: "post"
 draft: false
@@ -37,7 +37,7 @@ In the simplest terms, `useEffect` is a hook that allows you to perform side eff
 
 One of the first issues you can come across with effects directly in your code is that you can very easily block the UI from rendering. You won't be able to block it with a request. [React](https://reactjs.org/docs/hooks-reference.html) will stop you from getting that option. For example, perhaps, at first glance, you decide you'd rather wait until that data is returned before you render anything. React will error if you attempt to use async functions.
 
-**Note: Interruptible components are coming up in React! This is going to be through [concurrent mode](https://reactjs.org/docs/concurrent-mode-intro.html), and I highly recommend reading more about it. Perhaps one of my upcoming articles can explore the code!**
+> *Note: Interruptible components are coming up in React! This is going to be through [concurrent mode](https://reactjs.org/docs/concurrent-mode-intro.html), and I highly recommend reading more about it. Perhaps one of my upcoming articles can explore the code!*
 
 I got curious if there was any way I could make React wait for my request, and I couldn't. I even went for a disgusting `sleep` method, and javascript will correctly finish the function before it jumps back to resolve a promise. I just thought that was kind of neat.
 
@@ -128,8 +128,6 @@ export function CatFacts({id}) {
 }
 ```
 
-
-
 Now, of course, the `useEffect` effect is executed after the render, so you could argue it's not that different logistically from what we had previously.  But I would argue that by putting something in the `useEffect`, you are specifically telling the next developer that see's this code, **it is not logically in the flow of this component**. It is not intended to be read top-down. This function can be thought of as after the rest of this component has executed. Whereas, when something is inline to a functional component, it is assumed that data will be available to the component now.
 
 Now, what if it took a moment to collect the data we wanted? Long running code execution could block the UI from rendering, but for simplicity, I'm just going to use a timeout to fake this.
@@ -190,7 +188,7 @@ export function CatFacts({ id }) {
 
 [Try it yourself!](https://codesandbox.io/s/fetchexampleone-pf1il)
 
-**Note: In the above example, fetch should also be part of the dependency array of the useEffect. I didn't want to add to much noise while we are working through the example, but we will circle back to why it needs to be there later in the article.**
+> *Note: In the above example, fetch should also be part of the dependency array of the useEffect. I didn't want to add to much noise while we are working through the example, but we will circle back to why it needs to be there later in the article.*
 
 Looking at the [useEffect](https://reactjs.org/docs/hooks-effect.html), it doesn't look a whole ton different from our previous examples. You'll notice if you add the timeout back to the code example, it will work correctly now as well. We'll break down why that is later on, but notice that we've only really added two new pieces, the `useEffect` call, and the `[id, setData]` dependency array.
 
@@ -204,8 +202,6 @@ export function CatFacts({ id }) {
   return <div>Cat Fact: {data}</div>;
 }
 ```
-
-
 
 ### So I should use the useEffect hook on side effects?
 
@@ -298,7 +294,7 @@ function ExampleComponent({url}) {
 
 So that works, right? Well yes, but likely not in the way we want it to, since this is going to again call our effect on every update to the component now. Every time the ExampleComponent is updated, we are going to reinitialize the `fetchData` function. 
 
-**Note: Again, we don't want to tie our mental model this into class components, and a lot of people got used to instance variables/methods in class components. In the case of functional components, we don't have "previous values" that exist throughout updates. If a function is called again, all of those values are created again, including the functions.**
+> *Note: Again, we don't want to tie our mental model this into class components, and a lot of people got used to instance variables/methods in class components. In the case of functional components, we don't have "previous values" that exist throughout updates. If a function is called again, all of those values are created again, including the functions.*
 
 Your first thought to the problem above may be "well why even have the function in the dependency array if I remove it it it works fine." Yes, in this case, it will work as you expected, but if you are using Reacts [ESLint for hooks](https://www.npmjs.com/package/eslint-plugin-react-hooks) (and I highly recommend you do), you'll notice it doesn't like that. And that's because of the same reason we talked about above with the *on first render* and our `url` prop. This may give us the desired result, but it's could also hide an undesirable bug. 
 
@@ -366,7 +362,7 @@ function ValueEq() {
 
 Now, not only are these values no longer equal, but they are pointing to two different spots in memory. We know this because when we change A, C doesn't change with it. If they shared the same spot in memory, both values would update at the same time. That's why these are equality by value, but not referentially equal. Let's see a diagram of what this looks like with our memory:
 
-![ValueEquality](/Users/dennyscott/development/redux-vs-context-vs-state/ValueEquality.gif)
+![ValueEquality](https://raw.githubusercontent.com/DennyScott/dennyscott.io/master/static/media/use-effect-dependencies/ValueEquality.gif)
 
 For primitive values, like a string or integer, we can only compare by value, we don't have a way to store another variables reference. Even if we do something like this:
 
@@ -385,7 +381,7 @@ Despite us pointing the variable `B` at our `A` variable, we don't get the spot 
 
 On the other hand, we can compare referential values with compound values, like objects, functions, and arrays.
 
-**Note: Technically functions and arrays are also objects in Javascript.**
+> *Note: Technically functions and arrays are also objects in Javascript.*
 
 To bring this back around to using functions in the `useEffect` dependency array, let's take a look at the referential equality of a function:
 
@@ -402,7 +398,7 @@ function RefEq() {
 
 Both function A and B are pointing to the same spot in memory. Now, if someone were to reassign A, it would move A to a new place in memory, just like above, and B would still point to the original spot. On the other hand, if A held an object, and we mutated that object, B would also get those updates. Let's take a look at our above code example in a diagram.
 
-![ReferentialEquality](/Users/dennyscott/development/redux-vs-context-vs-state/ReferentialEquality.png)
+![ReferentialEquality](https://raw.githubusercontent.com/DennyScott/dennyscott.io/master/static/media/use-effect-dependencies/ReferentialEquality.png)
 
 #### Back to our memoized function
 
@@ -423,7 +419,7 @@ function ExampleComponent({url}) {
 
 If you are only going to do a single use of the function, I recommend moving the logic in like above, but this pattern is handy when you need to pass the function into multiple `useEffects`. You'll find `useCallback` even handier when passing functions down into child components. If we don't use this pattern, the child component will rerender every update, even if it is memoized. That's because the function will never have the same referential equality to the previous render. Even more, if that child component has any hooks dependent on that function, the will be recalled every time. For that reason, it's always a good bet to build your functions that are being passed to child components with `useCallback`.
 
-**Note: This does not mean you should build every function with useCallback. It's only crucial if it is being passed to child components. Memoizing local functions calls can often add unnecessary overhead and complexity to your code.**
+> *Note: This does not mean you should build every function with useCallback. It's only crucial if it is being passed to child components. Memoizing local functions calls can often add unnecessary overhead and complexity to your code.*
 
 So, we know that if we are using our functions in a dependency array, we should memoize them by wrapping this in a useEffect. If we don't do this, the effect will rerun after every update of the component. So then, why in the original example of the `useEffect` did I now do that with the `setData` function?
 
@@ -478,13 +474,13 @@ function DemoEffect({ dep }) {
 
 ```
 
-![MemoizedvsNot](/Users/dennyscott/development/redux-vs-context-vs-state/MemoizedvsNot.jpg)
+![MemoizedvsNot](https://raw.githubusercontent.com/DennyScott/dennyscott.io/master/static/media/use-effect-dependencies/MemoizedvsNot.jpg)
 
 ### Approach #3: Import the function instead
 
 The last style we can use for our `fetchData` function actually moves it outside of the component itself. This is a style that isn't often talked about as much as the prior two, but, depending on what it does, can often be my favourite. This style does need for you to use the ESM `import` style in your modules, and not the CJS style. 
 
-**Note: Without going too into detail, this is because import statements are going to give us a single instance of a function that cannot be mutated, whereas an exported module with CJS can be mutated. This is also why ESM is statically analyzable. If you do want to read more about this, modules are talked about quite frequently in be Reducing JS Bundle Size series.**
+> *Note: Without going too into detail, this is because import statements are going to give us a single instance of a function that cannot be mutated, whereas an exported module with CJS can be mutated. This is also why ESM is statically analyzable. If you do want to read more about this, modules are talked about quite frequently in be Reducing JS Bundle Size series.*
 
 In the example above, this could look something like this:
 
