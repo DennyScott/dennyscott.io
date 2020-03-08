@@ -637,7 +637,7 @@ Here’s our code now using a Redux store, connected through the React-Redux pro
 
 What happens now when we click the `Change context` button? Our output should look like this:
 
-![ReduxOutput](https://raw.githubusercontent.com/DennyScott/dennyscott.io/master/static/media/redux-vs-context-vs-state/redux-output.png)
+![ReduxOutput](https://raw.githubusercontent.com/DennyScott/dennyscott.io/master/static/media/redux-vs-context-vs-state/redux-ouput.png)
 
 Each component was called once for the initial render. Now, when we update our Level Three component, it only re-renders that single component. Not even our provider component updates.
 
