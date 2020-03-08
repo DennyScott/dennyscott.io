@@ -11,6 +11,7 @@ tags:
 description: "If you are new to useEffect and hooks, take a deeper dive into useEffect to get a better understanding of the dependency array to minimize renders and optimize effects."
 ---
 ## Introduction
+![ValueEquality](https://raw.githubusercontent.com/DennyScott/dennyscott.io/master/static/media/use-effect-dependencies/eslint.jpg)
 
 Last week I released an article around [Context vs. State vs. Redux](https://medium.com/better-programming/redux-vs-context-vs-state-4202be6d3e54). The goal was to try and give developers some pros and cons around each choice and hopefully help you make a better choice about the tool you plan to use. After I released it, I had a couple of people ask me questions around migrations to hooks with regards to using [Redux](https://redux.js.org/). Some developers were getting issues with `useEffect` running on every render when using `mapDispatchToProps` with the `connect` [react-redux](https://github.com/reduxjs/react-redux) HOC.
 
