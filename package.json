@@ -43,6 +43,7 @@
     "bluebird": "^3.5.5",
     "classnames": "^2.2.6",
     "codecov": "^3.5.0",
+    "fs-extra": "^9.1.0",
     "gatsby": "^2.10.5",
     "gatsby-link": "^2.2.0",
     "gatsby-plugin-catch-links": "^2.1.0",
@@ -68,6 +69,7 @@
     "gatsby-source-filesystem": "^2.1.1",
     "gatsby-transformer-remark": "^2.5.0",
     "gatsby-transformer-sharp": "^2.2.0",
+    "glob": "^7.1.6",
     "invariant": "^2.2.4",
     "katex": "^0.10.2",
     "lodash": "^4.17.13",
@@ -80,6 +82,7 @@
     "react-disqus-comments": "^1.4.0",
     "react-dom": "^16.8.6",
     "react-helmet": "^5.2.1",
+    "sharp": "^0.27.1",
     "yarn": "^1.16.0"
   },
   "devDependencies": {
