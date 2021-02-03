@@ -5,6 +5,21 @@ template: "page"
 
 This is a rough overview of my portfolio. Cleaning up this page is on my todo!
 
+### Release Notes Generator
+
+A side project I threw together with another developer to help compile release notes from Github pull requests. Server side
+was in .Net Core, while front end was developed with React. Mostly was just some practice with SVG's.
+
+![Release Notes](/images/releasenotes.png)
+
+[Github repo](https://github.com/DennyScott/release-notes)
+
+### Stencil
+
+Game development environment built to simplify game development in the vein of RPGMaker. Built in React, but 
+compiles into Unity. Allows for realtime game development across collaborators
+
+![Stencil](/images/stencil.png)
 ### Zenhub
 
 A better way to manage your GitHub issues. Multi-repo boards, epics, and reports -- all without ever leaving GitHub.
